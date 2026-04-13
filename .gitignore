@@ -1,0 +1,16 @@
+# DevTrace — .gitignore
+# This repo contains only the 3 source files.
+# Everything installed by devtrace-setup.sh lives in ~/.devtrace/ (not here).
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+
+# Never commit personal data
+decisions/
+*.db
+*.sqlite
+venv/
+.env
