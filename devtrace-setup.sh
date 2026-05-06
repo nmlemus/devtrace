@@ -141,11 +141,18 @@ Log an entry WITHOUT waiting to be asked whenever ANY of these happen:
 
 ## Session start protocol
 
+MANDATORY — execute these steps on EVERY session start, in order, before responding to the user:
+
 1. Deduce project name from current working directory
 2. Read ~/.devtrace/decisions/<project>.md silently if it exists
 3. Note any open questions from prior sessions — mention them briefly
    if relevant to what the user is asking
-4. Do NOT summarise the log aloud — just use the context'
+4. Do NOT summarise the log aloud — just use the context
+5. **Load OMEGA tools**: call ToolSearch with query "select:mcp__omega-memory__omega_welcome,mcp__omega-memory__omega_protocol,mcp__omega-memory__omega_store" to load their schemas
+6. **Call omega_welcome()** — loads recent context, active reminders, prior session state
+7. **Call omega_protocol(section="memory")** — loads operating rules for this session
+
+Steps 5-7 are NON-NEGOTIABLE. OMEGA tools are deferred by default and will silently not work unless ToolSearch is called first. Skipping them means memory is lost between sessions.'
 
 # ── CLAUDE CODE ───────────────────────────────────────────────────────────────
 if tool_enabled "claude"; then
